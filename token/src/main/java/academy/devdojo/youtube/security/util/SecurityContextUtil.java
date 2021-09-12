@@ -32,7 +32,7 @@ public class SecurityContextUtil {
                     .username(username)
                     .role(String.join(",", authorities))
                     .build();
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(applicationUser, null, createAuthorites(authorities));
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(applicationUser, null, createAuthorities(authorities));
             auth.setDetails(signedJWT.serialize());
 
             SecurityContextHolder.getContext().setAuthentication(auth);
@@ -42,7 +42,7 @@ public class SecurityContextUtil {
         }
     }
 
-    private static List<SimpleGrantedAuthority> createAuthorites(List<String> authorities) {
+    private static List<SimpleGrantedAuthority> createAuthorities(List<String> authorities) {
         return authorities.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(toList());
